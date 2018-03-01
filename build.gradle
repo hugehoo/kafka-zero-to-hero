@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.7.0'
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.9.1"
 }
 
 ext {
@@ -15,6 +16,10 @@ targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+    gradlePluginPortal()
+    maven {
+        url "https://packages.confluent.io/maven"
+    }
 }
 
 dependencies {
@@ -22,4 +27,21 @@ dependencies {
     implementation 'org.apache.kafka:kafka-streams:3.4.0'
     implementation 'org.slf4j:slf4j-simple:1.7.30'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation 'org.apache.avro:avro:1.7.6-cdh5.4.2.1.1'
+    implementation 'io.confluent:kafka-avro-serializer:6.1.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'
+
 }
+
+
+generateAvroJava {
+    source("src/main/resources/avro/")
+    include("**/*.avsc")
+    outputDir = file("build/generated/avro-java")
+}
+
+avro {
+    fieldVisibility = "PRIVATE"
+    outputCharacterEncoding = "UTF-8"
+}
+
