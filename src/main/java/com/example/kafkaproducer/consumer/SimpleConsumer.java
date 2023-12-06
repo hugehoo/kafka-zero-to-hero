@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.kafkaproducer.KafkaApplication;
-import com.sun.tools.javac.util.List;
 
 public class SimpleConsumer {
     private final static String BOOTSTRAP_SERVERS = "localhost:29092";
@@ -46,7 +45,6 @@ public class SimpleConsumer {
             }
 
             // background 에서 OffsetCommitCallback() 진행
-            //
             consumer.commitAsync(new OffsetCommitCallback() {
                 @Override
                 public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception e) {
