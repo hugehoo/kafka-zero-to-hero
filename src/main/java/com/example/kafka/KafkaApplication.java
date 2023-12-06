@@ -1,16 +1,9 @@
-package com.example.kafkaproducer;
+package com.example.kafka;
 
-import java.util.Properties;
-
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.kafkaproducer.consumer.SimpleConsumer;
-import com.example.kafkaproducer.producer.SimpleProducer;
+import com.example.kafka.consumer.SimpleConsumer;
 
 public class KafkaApplication {
     private final static Logger logger = LoggerFactory.getLogger(KafkaApplication.class);

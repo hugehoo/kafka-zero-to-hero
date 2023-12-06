@@ -1,4 +1,4 @@
-package com.example.kafkaproducer.rebalance;
+package com.example.kafka.rebalance;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -11,8 +11,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.example.kafkaproducer.KafkaApplication;
 
 public class ConsumerWithRebalanceListener {
     private final static Logger logger = LoggerFactory.getLogger(ConsumerWithRebalanceListener.class);

@@ -1,4 +1,4 @@
-package com.example.kafkaproducer.consumer;
+package com.example.kafka.consumer;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.kafkaproducer.KafkaApplication;
+import com.example.kafka.KafkaApplication;
 
 public class SimpleConsumer {
     private final static String BOOTSTRAP_SERVERS = "localhost:29092";

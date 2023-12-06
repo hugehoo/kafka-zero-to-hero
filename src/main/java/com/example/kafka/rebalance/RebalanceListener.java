@@ -1,4 +1,4 @@
-package com.example.kafkaproducer.rebalance;
+package com.example.kafka.rebalance;
 
 import java.util.Collection;
 
