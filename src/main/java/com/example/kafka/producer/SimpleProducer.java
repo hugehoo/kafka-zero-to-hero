@@ -1,5 +1,7 @@
 package com.example.kafka.producer;
 
+import static com.example.kafka.commons.Constants.*;
+
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -13,8 +15,6 @@ import com.example.kafka.KafkaApplication;
 
 public class SimpleProducer {
 
-    private final static String BOOTSTRAP_SERVERS = "localhost:29092";
-    private static final String TOPIC_NAME = "test";
     private final static Logger logger = LoggerFactory.getLogger(KafkaApplication.class);
 
     public static void produce() {
@@ -24,18 +24,15 @@ public class SimpleProducer {
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
-        String messageValue = "testMessage";
-        ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, messageValue);
-        logger.info("before | {}", record);
-        producer.send(record);
-        logger.info("after | {}", record);
-
-        ProducerRecord<String, String> pangyoRecord = new ProducerRecord<>(TOPIC_NAME, "Pangyo",
-            "Pangyo");
+        ProducerRecord<String, String> pangyoRecord = new ProducerRecord<>(TOPIC_TEST, "Pangyo", "Pangyo");
+        logger.info("before | {}", pangyoRecord);
         producer.send(pangyoRecord);
-        ProducerRecord<String, String> busanRecord = new ProducerRecord<>(TOPIC_NAME, "Busan",
-            "Busan");
+        logger.info("after | {}", pangyoRecord);
+
+        ProducerRecord<String, String> busanRecord = new ProducerRecord<>(TOPIC_TEST, "Busan", "Busan");
+        logger.info("before | {}", busanRecord);
         producer.send(busanRecord);
+        logger.info("after | {}", busanRecord);
 
         producer.flush();
         producer.close();

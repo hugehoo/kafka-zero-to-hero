@@ -1,5 +1,7 @@
 package com.example.kafka.consumer;
 
+import static com.example.kafka.commons.Constants.*;
+
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
@@ -19,9 +21,6 @@ import org.slf4j.LoggerFactory;
 import com.example.kafka.KafkaApplication;
 
 public class SimpleConsumer {
-    private final static String BOOTSTRAP_SERVERS = "localhost:29092";
-    private static final String TOPIC_NAME = "test";
-    private static final String GROUP_ID = "test-group";
     private final static Logger logger = LoggerFactory.getLogger(KafkaApplication.class);
 
     public static void consume() {
@@ -36,7 +35,7 @@ public class SimpleConsumer {
         configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // 명시적으로 commitSync() 를 할 필요 없다.
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(configs);
-        consumer.subscribe(Arrays.asList(TOPIC_NAME));
+        consumer.subscribe(Arrays.asList(TOPIC_TEST));
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
