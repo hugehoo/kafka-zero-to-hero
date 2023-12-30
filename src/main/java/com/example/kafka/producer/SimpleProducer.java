@@ -50,7 +50,7 @@ public class SimpleProducer {
         int i = 0;
         long start = System.currentTimeMillis();
         while (i < iter) {
-            String key = "ITER_TEST";
+            String key = "TEST_ONE_KEY";
             long currTime = System.currentTimeMillis();
             String value = String.format("%s | %s", i, currTime - start);
             producer.send(new ProducerRecord<String, String>(TOPIC_TEST, key, value));
