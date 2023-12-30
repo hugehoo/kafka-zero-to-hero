@@ -17,11 +17,16 @@ public class SimpleProducer {
 
     private final static Logger logger = LoggerFactory.getLogger(KafkaApplication.class);
 
-    public static void produce() {
+    private static Properties getProperties() {
         Properties configs = new Properties();
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        return configs;
+    }
+
+    public static void produce() {
+        Properties configs = getProperties();
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
         ProducerRecord<String, String> pangyoRecord = new ProducerRecord<>(TOPIC_TEST, "Pangyo", "Pangyo");
@@ -37,4 +42,20 @@ public class SimpleProducer {
         producer.flush();
         producer.close();
     }
+
+    public static void produceIterableMessages(int iter) {
+        Properties configs = getProperties();
+        KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
+
+        int i = 0;
+        long start = System.currentTimeMillis();
+        while (i < iter) {
+            String key = "ITER_TEST";
+            long currTime = System.currentTimeMillis();
+            String value = String.format("%s | %s", i, currTime - start);
+            producer.send(new ProducerRecord<String, String>(TOPIC_TEST, key, value));
+            i += 1;
+        }
+    }
+
 }
