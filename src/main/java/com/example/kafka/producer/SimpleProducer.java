@@ -2,6 +2,7 @@ package com.example.kafka.producer;
 
 import static com.example.kafka.commons.Constants.*;
 
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -50,10 +51,11 @@ public class SimpleProducer {
         int i = 0;
         long start = System.currentTimeMillis();
         while (i < iter) {
-            String key = "TEST_ONE_KEY";
+            // String key = "TEST_ONE_KEY";
             long currTime = System.currentTimeMillis();
+            logger.info("{} [log test] ", LocalDateTime.now());
             String value = String.format("%s | %s", i, currTime - start);
-            producer.send(new ProducerRecord<String, String>(TOPIC_TEST, key, value));
+            producer.send(new ProducerRecord<String, String>(TOPIC_TEST, value));
             i += 1;
         }
     }
