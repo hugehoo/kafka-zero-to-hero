@@ -12,7 +12,7 @@ public class KafkaApplication {
     public static void main(String[] args) {
         logger.info("test start");
         SimpleProducer.produceIterableMessages(100_000);
-        // SimpleConsumer.consume();
+        SimpleConsumer.consume();
         logger.info("test end");
     }
 
