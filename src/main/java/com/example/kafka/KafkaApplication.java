@@ -11,7 +11,7 @@ public class KafkaApplication {
 
     public static void main(String[] args) {
         logger.info("test start");
-        SimpleProducer.produceIterableMessages(100_000);
+        // SimpleProducer.produceIterableMessages(100);
         SimpleConsumer.consume();
         logger.info("test end");
     }
