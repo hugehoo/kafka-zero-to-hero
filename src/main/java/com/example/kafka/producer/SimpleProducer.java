@@ -3,7 +3,10 @@ package com.example.kafka.producer;
 import static com.example.kafka.commons.Constants.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -47,17 +50,47 @@ public class SimpleProducer {
     public static void produceIterableMessages(int iter) {
         Properties configs = getProperties();
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
-
+        Random rand = new Random();
+        List<String> domains = getDomainCollection();
         int i = 0;
-        long start = System.currentTimeMillis();
         while (i < iter) {
-            // String key = "TEST_ONE_KEY";
-            long currTime = System.currentTimeMillis();
-            logger.info("{} [log test] ", LocalDateTime.now());
-            String value = String.format("%s | %s", i, currTime - start);
+            String domain = getRandomDomain(domains, rand);
+            String key = "TEST_ONE_KEY";
+            LocalDateTime now = LocalDateTime.now();
+            String value = String.format("[%s] | %s", i, domain);
+
+
+            // basic (async)
             producer.send(new ProducerRecord<String, String>(TOPIC_TEST, value));
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_TEST, value);
+
+            // async
+            producer.send(record, ((metadata, exception) -> {
+                if (exception == null) {
+                    logger.info("\n ###### record metadata received ##### \n" +
+                        "partition:" + metadata.partition() +
+                        "offset:" + metadata.offset() +
+                        "timestamp:" + metadata.timestamp());
+                } else {
+                    logger.error("exception error from broker " + exception.getMessage());
+                }
+            }));
             i += 1;
         }
+    }
+
+    private static List<String> getDomainCollection() {
+        List<String> domains = new ArrayList<>();
+        domains.add("user");
+        domains.add("product");
+        domains.add("hotel");
+        domains.add("admin");
+        domains.add("travel");
+        return domains;
+    }
+
+    private static String getRandomDomain(List<String> domains, Random rand) {
+        return domains.get(rand.nextInt(5));
     }
 
 }
