@@ -3,7 +3,8 @@ package com.example.kafka;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.kafka.consumer.SimpleConsumer;
+import com.example.kafka.consumer.SimpleKotlinConsumer;
+import com.example.kafka.producer.SimpleKotlinProducer;
 import com.example.kafka.producer.SimpleProducer;
 
 public class KafkaApplication {
@@ -11,8 +12,11 @@ public class KafkaApplication {
 
     public static void main(String[] args) {
         logger.info("test start");
-        // SimpleProducer.produceIterableMessages(100);
-        SimpleConsumer.consume();
+        SimpleKotlinProducer producer = new SimpleKotlinProducer();
+        producer.iterableProduce(1000);
+
+        SimpleKotlinConsumer simpleKotlinConsumer = new SimpleKotlinConsumer();
+        simpleKotlinConsumer.consume();
         logger.info("test end");
     }
 

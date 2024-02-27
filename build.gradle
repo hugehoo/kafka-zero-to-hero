@@ -1,12 +1,17 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.0'
+}
+
+ext {
+    kotlinVersion = '1.7.0'
 }
 
 group 'com.example'
 version '1.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -15,5 +20,6 @@ repositories {
 dependencies {
     implementation 'org.apache.kafka:kafka-clients:3.4.0'
     implementation 'org.apache.kafka:kafka-streams:3.4.0'
-    implementation  'org.slf4j:slf4j-simple:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
