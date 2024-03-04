@@ -23,16 +23,15 @@ public class AvroProducer {
     private final static Logger logger = LoggerFactory.getLogger(KafkaApplication.class);
 
     private static Properties getProperties() {
-        Properties configs = new Properties();
-        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
-        configs.put("schema.registry.url", "http://127.0.0.1:8081");
-        // configs.put(ProducerConfig., KafkaAvroSerializer.class.getName());
-        return configs;
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
+        properties.put("schema.registry.url", SCHEMA_REGISTRY_URL);
+        return properties;
     }
 
-    public void produceAvroScheme() {
+    public void producerAvro() {
         Properties configs = getProperties();
 
         KafkaProducer<String, Customer> producer = new KafkaProducer<>(configs);
@@ -48,8 +47,8 @@ public class AvroProducer {
             @Override
             public void onCompletion(RecordMetadata metadata, Exception exception) {
                 if (exception == null) {
-                    System.out.println("Success!");
-                    System.out.println(metadata.toString());
+                    logger.info("!SUCCESS!");
+                    logger.info(metadata.toString());
                 } else {
                     exception.printStackTrace();
                 }

@@ -12,7 +12,7 @@ public class KafkaApplication {
     public static void main(String[] args) {
         logger.info("test start");
         AvroProducer avroProducer = new AvroProducer();
-        avroProducer.produceAvroScheme();
+        avroProducer.producerAvro();
         AvroConsumer avroConsumer = new AvroConsumer();
         avroConsumer.consumerAvro();
         logger.info("test end");

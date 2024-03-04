@@ -9,4 +9,6 @@ public class Constants {
     public static final String TOPIC_AVRO = "avro";
     public static final String GROUP_ID = "parti-group";
 
+    public static final String SCHEMA_REGISTRY_URL = "http://127.0.0.1:8081";
+
 }
