@@ -7,19 +7,27 @@
       "name": "name",
       "type": "string"
     },
-    {
-      "name": "favorite_number",
-      "type": [
-        "int",
-        "null"
-      ]
-    },
+//    {
+//      "name": "favorite_number",
+//      "type": [
+//        "int",
+//        "null"
+//      ]
+//    },
     {
       "name": "favorite_color",
       "type": [
         "string",
         "null"
       ]
+    },
+    {
+      "name": "channel",
+      "type": [
+        "string",
+        "null"
+      ],
+      "default": "backend"
     }
   ]
 }

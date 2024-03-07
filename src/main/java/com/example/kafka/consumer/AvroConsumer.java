@@ -6,6 +6,8 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
+import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -27,14 +29,14 @@ public class AvroConsumer {
     public void consumerAvro() {
         Properties props = getProperties();
 
-        final Consumer<String, Customer> consumer = new KafkaConsumer<>(props);
-
+        final Consumer<String, Customer> consumer = new KafkaConsumer<>(props); // Referencing Customer
+        // final Consumer<String, GenericRecord> consumer = new KafkaConsumer<>(props);
         try (consumer) {
             consumer.subscribe(Collections.singletonList(TOPIC_AVRO));
             while (true) {
                 ConsumerRecords<String, Customer> records = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, Customer> record : records) {
-                    System.out.printf("Received message: key = %s, value = %s%n", record.key(), record.value());
+                    System.out.printf("Received message: value = %s%n", record.value());
                 }
             }
         }
